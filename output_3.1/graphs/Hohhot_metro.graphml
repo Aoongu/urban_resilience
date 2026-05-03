@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d4" for="edge" attr.name="mode" attr.type="string" />
+  <key id="d3" for="edge" attr.name="length" attr.type="double" />
+  <key id="d2" for="node" attr.name="mode" attr.type="string" />
+  <key id="d1" for="node" attr.name="y" attr.type="double" />
+  <key id="d0" for="node" attr.name="x" attr.type="double" />
+  <graph edgedefault="undirected">
+    <node id="BV10875452">
+      <data key="d0">111.56835399783334</data>
+      <data key="d1">40.78360968355879</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV11310978">
+      <data key="d0">111.58545963927617</data>
+      <data key="d1">40.793813360097</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875447">
+      <data key="d0">111.59799902571704</data>
+      <data key="d1">40.798683043322505</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV09199403">
+      <data key="d0">111.61012749400591</data>
+      <data key="d1">40.803731284459374</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875473">
+      <data key="d0">111.6252840902322</data>
+      <data key="d1">40.81004413167602</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875461">
+      <data key="d0">111.63487243149332</data>
+      <data key="d1">40.814114041195175</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875465">
+      <data key="d0">111.64882318880579</data>
+      <data key="d1">40.81758047212175</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875477">
+      <data key="d0">111.66129314359353</data>
+      <data key="d1">40.81953744839245</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875456">
+      <data key="d0">111.6694460585467</data>
+      <data key="d1">40.82199979131481</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10915954">
+      <data key="d0">111.68317623155808</data>
+      <data key="d1">40.82497072119649</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875450">
+      <data key="d0">111.6928560071607</data>
+      <data key="d1">40.827512023242676</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875451">
+      <data key="d0">111.70199656022287</data>
+      <data key="d1">40.82958237871919</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875462">
+      <data key="d0">111.71359925328713</data>
+      <data key="d1">40.83214274946319</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV11318184">
+      <data key="d0">111.72495798977924</data>
+      <data key="d1">40.83463559314588</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875448">
+      <data key="d0">111.74034764930784</data>
+      <data key="d1">40.83801746942503</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875459">
+      <data key="d0">111.7602109202435</data>
+      <data key="d1">40.845956936537476</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875449">
+      <data key="d0">111.7745092089443</data>
+      <data key="d1">40.84686746368202</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10915953">
+      <data key="d0">111.79381290255873</data>
+      <data key="d1">40.85079343267563</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875469">
+      <data key="d0">111.80491481921094</data>
+      <data key="d1">40.853377014058815</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875467">
+      <data key="d0">111.81774822367638</data>
+      <data key="d1">40.85635401743854</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875438">
+      <data key="d0">111.74090992843249</data>
+      <data key="d1">40.75408596640975</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875441">
+      <data key="d0">111.72443937625549</data>
+      <data key="d1">40.754311628871534</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875453">
+      <data key="d0">111.70012143692944</data>
+      <data key="d1">40.75425873131697</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875440">
+      <data key="d0">111.68563524498215</data>
+      <data key="d1">40.75782160936668</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875474">
+      <data key="d0">111.680643009802</data>
+      <data key="d1">40.769558690820425</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875470">
+      <data key="d0">111.67810059547199</data>
+      <data key="d1">40.77607439872249</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875442">
+      <data key="d0">111.67453959745038</data>
+      <data key="d1">40.78506514827218</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875444">
+      <data key="d0">111.67277259398871</data>
+      <data key="d1">40.79721703763969</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875455">
+      <data key="d0">111.66886691860607</data>
+      <data key="d1">40.80468264595249</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875458">
+      <data key="d0">111.66420809851437</data>
+      <data key="d1">40.813974265558244</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10915952">
+      <data key="d0">111.65890036999174</data>
+      <data key="d1">40.82817212692778</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875445">
+      <data key="d0">111.65548558901645</data>
+      <data key="d1">40.834439579647324</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875475">
+      <data key="d0">111.64929680666616</data>
+      <data key="d1">40.84882944451765</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875464">
+      <data key="d0">111.65746165436347</data>
+      <data key="d1">40.85464043774845</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875446">
+      <data key="d0">111.66948736396908</data>
+      <data key="d1">40.85615209974372</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875457">
+      <data key="d0">111.68385211145399</data>
+      <data key="d1">40.8579957641617</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875466">
+      <data key="d0">111.69788471282743</data>
+      <data key="d1">40.860140625096506</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875476">
+      <data key="d0">111.7116856641304</data>
+      <data key="d1">40.85798590025638</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV09199402">
+      <data key="d0">111.72551534367612</data>
+      <data key="d1">40.85759855872882</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875471">
+      <data key="d0">111.74027152148292</data>
+      <data key="d1">40.86114265706053</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875472">
+      <data key="d0">111.75172534707643</data>
+      <data key="d1">40.86377249431599</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875454">
+      <data key="d0">111.75895822986296</data>
+      <data key="d1">40.86589490755247</data>
+      <data key="d2">metro</data>
+    </node>
+    <node id="BV10875443">
+      <data key="d0">111.77024448852356</data>
+      <data key="d1">40.86800581313237</data>
+      <data key="d2">metro</data>
+    </node>
+    <edge source="BV10875452" target="BV11310978">
+      <data key="d3">2231.391480009735</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV11310978" target="BV10875447">
+      <data key="d3">1493.2158743681107</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875447" target="BV09199403">
+      <data key="d3">1458.229629310976</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV09199403" target="BV10875473">
+      <data key="d3">1822.4801254478664</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875473" target="BV10875461">
+      <data key="d3">1156.2208794167896</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875461" target="BV10875465">
+      <data key="d3">1597.616239187699</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875465" target="BV10875477">
+      <data key="d3">1374.5864205362416</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875477" target="BV10875458">
+      <data key="d3">697.2060177105825</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875477" target="BV10915952">
+      <data key="d3">999.0975779810792</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875477" target="BV10875456">
+      <data key="d3">966.6221301579174</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875456" target="BV10915954">
+      <data key="d3">1559.5513858924487</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10915954" target="BV10875450">
+      <data key="d3">1110.91175530236</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875450" target="BV10875451">
+      <data key="d3">1040.3028469542123</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875451" target="BV10875462">
+      <data key="d3">1318.8849329013726</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875462" target="BV11318184">
+      <data key="d3">1290.8262713615272</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV11318184" target="BV10875448">
+      <data key="d3">1749.0130746891596</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875448" target="BV10875459">
+      <data key="d3">2738.591612488641</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875459" target="BV10875449">
+      <data key="d3">1776.6132460753279</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875449" target="BV10915953">
+      <data key="d3">2210.390774163754</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10915953" target="BV10875469">
+      <data key="d3">1265.2586009775966</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875469" target="BV10875467">
+      <data key="d3">1462.3512934261635</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875438" target="BV10875441">
+      <data key="d3">1854.5769494891879</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875441" target="BV10875453">
+      <data key="d3">2747.98176909447</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875453" target="BV10875440">
+      <data key="d3">1929.1845343968162</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875440" target="BV10875474">
+      <data key="d3">1415.7758003615204</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875474" target="BV10875470">
+      <data key="d3">776.3721146319175</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875470" target="BV10875442">
+      <data key="d3">1073.4364404235948</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875442" target="BV10875444">
+      <data key="d3">1391.9039479432354</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875444" target="BV10875455">
+      <data key="d3">935.2533847822807</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875455" target="BV10875458">
+      <data key="d3">1153.7592700783405</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10915952" target="BV10875445">
+      <data key="d3">814.8383559763025</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875445" target="BV10875475">
+      <data key="d3">1772.0760463826973</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875475" target="BV10875464">
+      <data key="d3">1535.181308333206</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875464" target="BV10875446">
+      <data key="d3">1345.4798743448705</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875446" target="BV10875457">
+      <data key="d3">1607.572924805319</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875457" target="BV10875466">
+      <data key="d3">1586.1849146900133</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875466" target="BV10875476">
+      <data key="d3">1550.887749775266</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875476" target="BV09199402">
+      <data key="d3">1553.6369074959148</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV09199402" target="BV10875471">
+      <data key="d3">1684.5259579054577</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875471" target="BV10875472">
+      <data key="d3">1304.4564867945685</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875472" target="BV10875454">
+      <data key="d3">837.1649017576099</data>
+      <data key="d4">metro</data>
+    </edge>
+    <edge source="BV10875454" target="BV10875443">
+      <data key="d3">1274.7690280382565</data>
+      <data key="d4">metro</data>
+    </edge>
+  </graph>
+</graphml>
