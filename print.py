@@ -1,8 +1,10 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from math import pi
+import geopandas as gpd
 
 plt.rcParams['font.sans-serif'] = ['SimHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
@@ -10,6 +12,39 @@ plt.rcParams['axes.unicode_minus'] = False
 # 1. 读取数据
 bot_df = pd.read_csv('output_bottleneck/all_cities_bottleneck.csv')
 stab_df = pd.read_csv('output_bottleneck/all_cities_stability.csv')
+
+# ================= 新增：站点名称查询与缓存系统 =================
+# 全局缓存，避免重复读取同一个城市的 shapefile，极大提升出图速度
+_station_name_cache = {}
+
+
+def get_station_name(city, node_id):
+    """根据城市名和节点ID，从 dbf 文件中查找真实的中文站名"""
+    # 提取真实的节点 ID (去除数据集中可能存在的 bus_ 或 metro_ 前缀)
+    real_node_id = str(node_id).split('_')[-1]
+
+    # 如果缓存中还没有这个城市的数据，去读取它
+    if city not in _station_name_cache:
+        _station_name_cache[city] = {}
+        # 同时尝试读取地铁和公交的 dbf 文件，建立完整的 ID->名称 映射字典
+        for mode in ['metro', 'bus']:
+            # 兼容大小写命名习惯 (先试原名，再试全小写)
+            dbf_path = f"./dataset/{mode}/shapefiles/{city}/{city}_{mode}_stops_unique.dbf"
+            if not os.path.exists(dbf_path):
+                dbf_path = f"./dataset/{mode}/shapefiles/{city}/{city.lower()}_{mode}_stops_unique.dbf"
+
+            if os.path.exists(dbf_path):
+                try:
+                    # 强制使用 utf-8 编码读取
+                    gdf = gpd.read_file(dbf_path, encoding='utf-8')
+                    for _, row in gdf.iterrows():
+                        _station_name_cache[city][row['stop_id']] = row['stop_cn']
+                except Exception as e:
+                    print(f"⚠️ 读取 {dbf_path} 失败: {e}")
+
+    # 从缓存中查找站名，如果找不到（可能是数据缺失或路径不对），则退化返回原短 ID
+    return _station_name_cache[city].get(real_node_id, real_node_id)
+# ================================================================
 
 
 def plot_stability_quadrant(top_n_labels=12):
@@ -30,13 +65,11 @@ def plot_stability_quadrant(top_n_labels=12):
     plt.axvline(x=x_median, color='red', linestyle='--', alpha=0.5)
     plt.axhline(y=y_median, color='red', linestyle='--', alpha=0.5)
 
-    # plt.text(merged['mean_score'].max() * 0.8, merged['stability_score'].max() * 0.95,
-    #          '绝对瓶颈区\n(高破坏+高稳定)', fontsize=12, color='darkred', weight='bold')
     # 把 y 轴的乘数调小一点，让文字往下走，避开最高的那个点
     plt.text(merged['mean_score'].max() * 0.75, merged['stability_score'].max() * 0.85,
              '绝对瓶颈区\n(高破坏+高稳定)', fontsize=12, color='darkred', weight='bold')
 
-    # ================= 新增：高破坏高稳定点标注逻辑 =================
+    # ================= 高破坏高稳定点标注逻辑 =================
     # 1. 筛选出位于第一象限的点
     top_right = merged[(merged['mean_score'] > x_median) & (merged['stability_score'] > y_median)].copy()
 
@@ -47,14 +80,15 @@ def plot_stability_quadrant(top_n_labels=12):
     # 3. 提取排名前 N 的极值点
     top_nodes = top_right.sort_values('combined_score', ascending=False).head(top_n_labels)
 
-    # 4. 执行标注
+    # 4. 执行标注 (使用真实的站点名称)
     try:
         from adjustText import adjust_text
         texts = []
         for _, row in top_nodes.iterrows():
-            # 简化节点名称显示，例如将 "bus_BV12345" 简化为 "BV12345"
-            short_node = str(row['node']).split('_')[-1]
-            label = f"{row['city']}-{short_node}"
+            # 这里调用新的函数获取真实中文名
+            station_name = get_station_name(row['city'], row['node'])
+            label = f"{row['city']}-{station_name}"
+
             texts.append(plt.text(row['mean_score'], row['stability_score'], label,
                                   fontsize=9, color='black', weight='bold'))
 
@@ -66,8 +100,9 @@ def plot_stability_quadrant(top_n_labels=12):
         print("⚠️ 未找到 adjustText 库。使用基础 matplotlib 标注，可能会有少许重叠。")
         print("💡 提示：运行 'pip install adjustText' 可获得更好的论文排版效果。")
         for _, row in top_nodes.iterrows():
-            short_node = str(row['node']).split('_')[-1]
-            label = f"{row['city']}-{short_node}"
+            station_name = get_station_name(row['city'], row['node'])
+            label = f"{row['city']}-{station_name}"
+
             plt.annotate(label,
                          (row['mean_score'], row['stability_score']),
                          textcoords="offset points",
@@ -120,9 +155,10 @@ def plot_radar_chart(city_name="Hohhot", top_n=3):
         values = row[categories].values.flatten().tolist()
         values += values[:1]
 
-        # 图例中显示短ID
-        short_node = str(row['node']).split('_')[-1]
-        ax.plot(angles, values, linewidth=2.5, linestyle='solid', label=f"Node: {short_node}", color=colors[i])
+        # 这里调用新的函数获取真实中文名
+        station_name = get_station_name(city_name, row['node'])
+
+        ax.plot(angles, values, linewidth=2.5, linestyle='solid', label=f"{station_name}", color=colors[i])
         ax.fill(angles, values, color=colors[i], alpha=0.15)
 
     plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
@@ -133,5 +169,6 @@ def plot_radar_chart(city_name="Hohhot", top_n=3):
 
 
 # 执行出图
-# plot_stability_quadrant(top_n_labels=12)  # 你可以通过修改 12 来控制全图标注的数量
+# 你可以解除下面这行的注释来生成全新的散点图
+plot_stability_quadrant(top_n_labels=12)
 plot_radar_chart("Hohhot", 3)
