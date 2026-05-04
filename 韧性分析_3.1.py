@@ -24,7 +24,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # ===================== 配置参数 =====================
 DATA_DIR = "./dataset"          # 数据根目录，包含bus/shapefiles和metro/shapefiles
-OUTPUT_DIR = "./output"         # 输出目录
+OUTPUT_DIR = "./output_3.1"         # 输出目录
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # 公交与地铁的城市文件夹模式（根据实际文件命名调整）
@@ -301,6 +301,56 @@ def build_and_cache_graph(city_name, mode='bus', force_rebuild=False):
     return G
 
 
+# def plot_aggregated_resilience(cities, strategies, output_dir, mode):
+#     """
+#     从缓存的模拟结果中读取数据，绘制所有城市的韧性曲线对比图。
+#     """
+#     fig_dir = os.path.join(output_dir, "figures")
+#     os.makedirs(fig_dir, exist_ok=True)
+
+#     # 准备绘图数据
+#     all_data = {}
+#     for city in cities:
+#         for strat in strategies:
+#             cache_file = os.path.join(output_dir, "simulations", f"{city}_{mode}_{strat}.pkl")
+#             if os.path.exists(cache_file):
+#                 with open(cache_file, 'rb') as f:
+#                     data = pickle.load(f)
+#                 all_data[f"{city}_{strat}"] = data
+
+#     if not all_data:
+#         print("没有可用的模拟数据，跳过绘图。")
+#         return
+
+#     # 提取分数序列（统一使用0~0.5，11个点）
+#     fractions = np.linspace(0, 0.5, 11)
+
+#     # 绘制 LCC 曲线
+#     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+#     for key, data in all_data.items():
+#         city = data['city']
+#         strat = data['strategy']
+#         lcc_vals = [step['lcc'] for step in data['steps']]
+#         ax = axes[0] if strat == 'random' else axes[1]
+#         ax.plot(fractions, lcc_vals, marker='o', markersize=3, label=city)
+
+#     axes[0].set_title('Random Attack (LCC)')
+#     axes[0].set_xlabel('Fraction of nodes removed')
+#     axes[0].set_ylabel('Largest Connected Component size')
+#     axes[0].legend()
+#     axes[0].grid(alpha=0.3)
+
+#     axes[1].set_title('Degree Attack (LCC)')
+#     axes[1].set_xlabel('Fraction of nodes removed')
+#     axes[1].set_ylabel('Largest Connected Component size')
+#     axes[1].legend()
+#     axes[1].grid(alpha=0.3)
+
+#     plt.tight_layout()
+#     plt.savefig(os.path.join(fig_dir, "aggregated_resilience_lcc.png"), dpi=400)
+#     plt.close()
+#     print("聚合韧性曲线已保存。")
+
 def plot_aggregated_resilience(cities, strategies, output_dir, mode):
     """
     从缓存的模拟结果中读取数据，绘制所有城市的韧性曲线对比图。
@@ -308,7 +358,7 @@ def plot_aggregated_resilience(cities, strategies, output_dir, mode):
     fig_dir = os.path.join(output_dir, "figures")
     os.makedirs(fig_dir, exist_ok=True)
 
-    # 准备绘图数据
+    # 1. 准备并组织绘图数据
     all_data = {}
     for city in cities:
         for strat in strategies:
@@ -316,40 +366,83 @@ def plot_aggregated_resilience(cities, strategies, output_dir, mode):
             if os.path.exists(cache_file):
                 with open(cache_file, 'rb') as f:
                     data = pickle.load(f)
-                all_data[f"{city}_{strat}"] = data
+                if city not in all_data:
+                    all_data[city] = {}
+                all_data[city][strat] = data
 
     if not all_data:
         print("没有可用的模拟数据，跳过绘图。")
         return
 
-    # 提取分数序列（统一使用0~0.5，11个点）
+    # 2. 筛选特点鲜明的几条线
+    # (通过计算Degree攻击下的LCC面积，代表城市的网络韧性得分，以此来挑选最具代表性的几个城市)
+    city_scores = {}
+    for city, strats_data in all_data.items():
+        if 'degree' in strats_data:
+            lcc_vals = [step['lcc'] for step in strats_data['degree']['steps']]
+            city_scores[city] = sum(lcc_vals)  # 简单的曲线下面积求和
+
+    if not city_scores:
+        print("缺少degree策略的数据，无法筛选。")
+        return
+
+    # 按韧性得分从大到小排序
+    sorted_cities = sorted(city_scores.keys(), key=lambda c: city_scores[c], reverse=True)
+
+    # 挑选出最强(0)、最弱(-1)，以及中间分布的几个城市（总共取5个特点鲜明的城市）
+    if len(sorted_cities) > 5:
+        selected_indices = [
+            0,
+            len(sorted_cities)//4,
+            len(sorted_cities)//2,
+            3*len(sorted_cities)//4,
+            len(sorted_cities)-1
+        ]
+        selected_cities = [sorted_cities[i] for i in selected_indices]
+    else:
+        selected_cities = sorted_cities
+
+    # 3. 提取分数序列（统一使用0~0.5，11个点）
     fractions = np.linspace(0, 0.5, 11)
 
-    # 绘制 LCC 曲线
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    for key, data in all_data.items():
-        city = data['city']
-        strat = data['strategy']
-        lcc_vals = [step['lcc'] for step in data['steps']]
-        ax = axes[0] if strat == 'random' else axes[1]
-        ax.plot(fractions, lcc_vals, marker='o', markersize=3, label=city)
+    # 4. 绘制 LCC 曲线 (修改为3个子图)
+    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
-    axes[0].set_title('Random Attack (LCC)')
-    axes[0].set_xlabel('Fraction of nodes removed')
-    axes[0].set_ylabel('Largest Connected Component size')
-    axes[0].legend()
-    axes[0].grid(alpha=0.3)
+    # 建立策略与子图的映射关系
+    strat_to_ax = {
+        'random': axes[0],
+        'degree': axes[1],
+        'betweenness': axes[2]
+    }
 
-    axes[1].set_title('Degree Attack (LCC)')
-    axes[1].set_xlabel('Fraction of nodes removed')
-    axes[1].set_ylabel('Largest Connected Component size')
-    axes[1].legend()
-    axes[1].grid(alpha=0.3)
+    # 仅绘制筛选出的代表性城市
+    for city in selected_cities:
+        for strat in strategies:
+            if strat in all_data[city]:
+                data = all_data[city][strat]
+                lcc_vals = [step['lcc'] for step in data['steps']]
+                ax = strat_to_ax[strat]
+                # 绘制曲线
+                ax.plot(fractions, lcc_vals, marker='o', markersize=4, linewidth=1.5, label=f"{city}")
+
+    # 5. 美化每个子图
+    for strat, ax in strat_to_ax.items():
+        ax.set_title(f'{strat.capitalize()} Attack (LCC)')
+        ax.set_xlabel('Fraction of nodes removed')
+        ax.set_ylabel('Largest Connected Component size')
+
+        # 获取图例并去重
+        handles, labels = ax.get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+        ax.legend(by_label.values(), by_label.keys())
+
+        ax.grid(alpha=0.3)
 
     plt.tight_layout()
     plt.savefig(os.path.join(fig_dir, "aggregated_resilience_lcc.png"), dpi=400)
     plt.close()
-    print("聚合韧性曲线已保存。")
+
+    print(f"聚合韧性曲线已保存。筛选出的代表性城市为: {selected_cities}")
 
 # ===================== 6. 主流程 =====================
 
